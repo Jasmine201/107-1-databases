@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Viloation</title>
+  <script>
+    function editBook(BId) {
+      window.location.href = "/edit?BId=" + BId;
+    }
+    function editInclude(PId) {
+      window.location.href = "/include/edit?PId=" + PId;
+    }
+    function addBook() {
+      document.getElementById("addBook").submit();
+    }
+    function addDetail() {
+      document.getElementById("addDetail").submit();
+    }
+    function addMember() {
+      document.getElementById("addMember").submit();
+    }
+    function addOrder() {
+      document.getElementById("addOrder").submit();
+    }
+    function addPlace() {
+      document.getElementById("addPlace").submit();
+    }
+    function addInclude() {
+      document.getElementById("addInclude").submit();
+    }
+
+  </script>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
+    <div class="container">
+      <a href="/" class="navbar-brand">Blogen</a>
+      <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav">
+          <li class="nav-item px-2">
+            <a href="/" class="nav-link active">Book</a>
+          </li>
+          <li class="nav-item px-2">
+            <a href="./detail" class="nav-link">Detail</a>
+          </li>
+          <li class="nav-item px-2">
+            <a href="./member" class="nav-link">Member</a>
+          </li>
+          <li class="nav-item px-2">
+            <a href="./order" class="nav-link">Order</a>
+          </li>
+          <li class="nav-item px-2">
+            <a href="./place" class="nav-link">Place</a>
+          </li>
+          <li class="nav-item px-2">
+              <a href="./include" class="nav-link">Include</a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown mr-3">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+              <i class="fas fa-user"></i> Welcome Brad
+            </a>
+            <div class="dropdown-menu">
+              <a href="/user/profile" class="dropdown-item">
+                <i class="fas fa-user-circle"></i> Profile
+              </a>
+              <a href="/user/setting" class="dropdown-item">
+                <i class="fas fa-cog"></i> Settings
+              </a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a href="/user/logout" class="nav-link">
+              <i class="fas fa-user-times"></i> Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <header id="main-header" class="py-2 bg-primary text-white">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h1>
+            <i class="fas fa-cog"></i> Violation</h1>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ACTIONS -->
+  <section id="actions" class="py-4 mb-4 bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3">
+          <a href="/add" class="btn btn-primary btn-block" data-toggle="modal" data-target="#addBookModal">
+            <i class="fas fa-plus"></i> Add Book
+          </a>
+        </div>
+        <div class="col-sm-3">
+          <a href="/member/add" class="btn btn-info btn-block" data-toggle="modal" data-target="#addMemberModal">
+            <i class="fas fa-plus"></i> Add Member
+          </a>
+        </div>
+        <div class="col-sm-3">
+          <a href="/place/add" class="btn btn-danger btn-block" data-toggle="modal" data-target="#addPlaceModal">
+            <i class="fas fa-plus"></i> Add Place
+          </a>
+        </div>
+        <div class="col-sm-3">
+            <a href="/order/add" class="btn btn-secondary btn-block" data-toggle="modal" data-target="#addOrderModal">
+              <i class="fas fa-plus"></i> Add Order
+            </a>
+          </div>
+        <div class="col-sm-3">
+          <a href="/detail/add" class="btn btn-success btn-block" data-toggle="modal" data-target="#addDetailModal">
+            <i class="fas fa-plus"></i> Add Detail
+          </a>
+        </div>
+        <div class="col-sm-3">
+          <a href="/include/add" class="btn btn-dark btn-block" data-toggle="modal" data-target="#addIncludeModal">
+            <i class="fas fa-plus"></i> Add Include
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POSTS -->
+  <section id="posts">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-9">
+          <div class="card">
+            <div class="card-header">
+              <h4>Book List</h4>
+            </div>
+            <table class="table table-striped">
+              <thead class="thead-dark">
+                <tr>
+                  <th>書籍編號</th>
+                  <th>書籍名稱</th>
+                  <th>關鍵字</th>
+                  <th>借閱地點</th>
+                  <th>借閱狀態</th>
+                  <th>歸還日期</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for ( var i = 0 ; i  <  data.length ; i++){ %>
+                <tr>
+                  <td>
+                    <%= data[i].BId %>
+                  </td>
+                  <td>
+                    <%= data[i].BName %>
+                  </td>
+                  <td>
+                    <%= data[i].BKeyword %>
+                  </td>
+                  <td>
+                    <%= data[i].PAddress %>
+                  </td>
+                  <td>
+                    <%= data[i].OStatus %>
+                  </td>
+                  <td>
+                    <%= data[i].DEnd %>
+                  </td>
+                  <td>
+                    <button value="Details" class="btn btn-secondary" onclick="editBook('<%= data[i].BId %>')">
+                      <i class="fas fa-angle-double-right"></i> Details
+                    </button>
+                  </td>
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card text-center bg-primary text-white mb-3">
+            <div class="card-body">
+              <h3>Book</h3>
+              <h4 class="display-4">
+                <i class="fas fa-pencil-alt"></i>
+                <%= BookCount %>
+              </h4>
+              <a href="/" class="btn btn-outline-light btn-sm">View</a>
+            </div>
+          </div>
+
+          <div class="card text-center bg-success text-white mb-3">
+            <div class="card-body ">
+              <h3>Detail</h3>
+              <h4 class="display-4">
+                <i class="fas fa-folder"></i>
+                <%= DetailCount %>
+              </h4>
+              <a href="./detail" class="btn btn-outline-light btn-sm">View</a>
+            </div>
+          </div>
+
+          <div class="card text-center bg-warning text-white mb-3">
+            <div class="card-body">
+              <h3>Member</h3>
+              <h4 class="display-4">
+                <i class="fas fa-users"></i>
+                <%= MemberCount %>
+              </h4>
+              <a href="./member" class="btn btn-outline-light btn-sm">View</a>
+            </div>
+          </div>
+
+          <div class="card text-center bg-primary text-white mb-3">
+            <div class="card-body">
+              <h3>Order</h3>
+              <h4 class="display-4">
+                <i class="fas fa-users"></i>
+                <%= OrderCount %>
+              </h4>
+              <a href="./order" class="btn btn-outline-light btn-sm">View</a>
+            </div>
+          </div>
+
+          <div class="card text-center bg-success text-white mb-3">
+            <div class="card-body">
+              <h3>Place</h3>
+              <h4 class="display-4">
+                <i class="fas fa-users"></i>
+                <%= PlaceCount %>
+              </h4>
+              <a href="./place" class="btn btn-outline-light btn-sm">View</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="main-footer" class="bg-dark text-white mt-5 p-5">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <p class="lead text-center">
+            Copyright &copy;
+            <span id="year"></span>
+            Blogen
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- MODALS -->
+
+  <!-- ADD Book MODAL -->
+  <div class="modal fade" id="addBookModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">Add Book</h5>
+          <button class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="addBook" action="/add" method="post">
+            <div class="form-group">
+              <label for="MName">書籍名稱(BId)</label>
+              <input type="text" name="BName" class="form-control" value="" placeholder="BName">
+            </div>
+            <div class="form-group">
+              <label for="MName">關鍵字(BKeyword)</label>
+              <input type="text" name="BKeyword" class="form-control" value="" placeholder="BKeyword">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" data-dismiss="modal" onclick="addBook()">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD Detail MODAL -->
+  <div class="modal fade" id="addDetailModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">Add Detail</h5>
+          <button class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="addDetail" action="/detail/add" method="post">
+            <div class="form-group">
+              <label for="DStart">借閱日期(DStart)</label>
+              <input type="text" name="DStart" class="form-control" value="" placeholder="DStart">
+            </div>
+            <div class="form-group">
+              <label for="DTime">借閱天數(DTime)</label>
+              <input type="text" name="DTime" class="form-control" value="" placeholder="DTime">
+            </div>
+            <div class="form-group">
+              <label for="DEnd">歸還日期(DEnd)</label>
+              <input type="text" name="DEnd" class="form-control" value="" placeholder="DEnd">
+            </div>
+            <div class="form-group">
+              <label for="OId">借閱編號(OId)</label>
+              <select class="form-control" name="OId">
+                <% 
+                        for ( var i = 0 ; i < Orders.length ; i++){ 
+                          var selected = ( i==0 ) ? "selected" : "";
+                      %>
+                <option value="<%= Orders[i].OId %>" <%=selected %>>
+                  <%= Orders[i].OId %>
+                </option>
+                <% } %>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="PId">借閱圖書館編號(PId)</label>
+              <select class="form-control" name="PId">
+                <% 
+                        for ( var i = 0 ; i < Places.length ; i++){ 
+                          var selected = ( i==0 ) ? "selected" : "";
+                      %>
+                <option value="<%= Places[i].PId %>" <%=selected %>>
+                  <%= Places[i].PId %>
+                </option>
+                <% } %>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" data-dismiss="modal" onclick="addDetail()">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD Member MODAL -->
+  <div class="modal fade" id="addMemberModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">Add Member</h5>
+          <button class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="addMember" action="/member/add" method="post">
+            <div class="form-group">
+              <label for="ID">身份證(ID)</label>
+              <input type="text" name="ID" class="form-control" value="" placeholder="ID">
+            </div>
+            <div class="form-group">
+              <label for="Name">會員名稱(Name)</label>
+              <input type="text" name="Name" class="form-control" value="" placeholder="Name">
+            </div>
+            <div class="form-group">
+              <label for="Phone">聯絡電話(Phone)</label>
+              <input type="text" name="Phone" class="form-control" value="" placeholder="Phone">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" data-dismiss="modal" onclick="addMember()">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD Order MODAL -->
+  <div class="modal fade" id="addOrderModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">Add Order</h5>
+          <button class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="addOrder" action="/order/add" method="post">
+            <div class="form-group">
+              <label for="ODate">借閱日期(ODate)</label>
+              <input type="text" name="ODate" class="form-control" value="" placeholder="ODate">
+            </div>
+            <div class="form-group">
+              <label for="OStatus">借閱狀態(OStatus)</label>
+              <input type="text" name="OStatus" class="form-control" value="" placeholder="OStatus">
+            </div>
+            <div class="form-group">
+              <label for="MId">會員編號(MId)</label>
+              <select class="form-control" name="MId">
+                <% 
+                        for ( var i = 0 ; i < Members.length ; i++){ 
+                          var selected = ( i==0 ) ? "selected" : "";
+                      %>
+                <option value="<%= Members[i].MId %>" <%=selected %>>
+                  <%= Members[i].MId %>
+                </option>
+                <% } %>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" data-dismiss="modal" onclick="addOrder()">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD Place MODAL -->
+  <div class="modal fade" id="addPlaceModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">Add Place</h5>
+          <button class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="addPlace" action="/place/add" method="post">
+            <div class="form-group">
+              <label for="PAddress">取書地址(PAddress)</label>
+              <input type="text" name="PAddress" class="form-control" value="" placeholder="PAddress">
+            </div>
+            <div class="form-group">
+              <label for="PName">取書地點(PName)</label>
+              <input type="text" name="PName" class="form-control" value="" placeholder="PName">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" data-dismiss="modal" onclick="addPlace()">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD Include MODAL -->
+  <div class="modal fade" id="addIncludeModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">Add Include</h5>
+          <button class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="addInclude" action="/include/add" method="post">
+            <div class="form-group">
+              <label for="PId">圖書館編號(PId)</label>
+              <select class="form-control" name="PId">
+                <% 
+                        for ( var i = 0 ; i < Places.length ; i++){ 
+                          var selected = ( i==0 ) ? "selected" : "";
+                      %>
+                <option value="<%= Places[i].PId %>" <%=selected %>>
+                  <%= Places[i].PId %>
+                </option>
+                <% } %>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="OId">訂閱編號(OId)</label>
+              <select class="form-control" name="OId">
+                <% 
+                        for ( var i = 0 ; i < Orders.length ; i++){ 
+                          var selected = ( i==0 ) ? "selected" : "";
+                      %>
+                <option value="<%= Orders[i].OId %>" <%=selected %>>
+                  <%= Orders[i].OId %>
+                </option>
+                <% } %>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="BId">書籍編號(BId)</label>
+              <select class="form-control" name="BId">
+                <% 
+                        for ( var i = 0 ; i < Books.length ; i++){ 
+                          var selected = ( i==0 ) ? "selected" : "";
+                      %>
+                <option value="<%= Books[i].BId %>" <%=selected %>>
+                  <%= Books[i].BId %>
+                </option>
+                <% } %>
+              </select>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" data-dismiss="modal" onclick="addInclude()">Save Changes</button>
+            </div>
+        </div>
+      </div>
+    </div>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/af.js"></script>
+    <script>
+      // Get the current year for the copyright
+      $('#year').text(new Date().getFullYear());
+
+      CKEDITOR.replace('editor1');
+    </script>
+</body>
+
+</html>
